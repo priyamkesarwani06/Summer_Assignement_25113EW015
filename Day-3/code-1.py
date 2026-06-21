@@ -1,14 +1,16 @@
-def generate_fibonacci(n):
-    # Initializing the first two terms
-    a, b = 0, 1
-    
-    # Generate and print the sequence
-    for _ in range(n):
-        print(a, end=" ")
-        # Updating variables simultaneously
-        a, b = b, a + b
-
-# Example usage: Generate the first 10 terms
-num_terms = 10
-print(f"Fibonacci series with {num_terms} terms:")
-generate_fibonacci(num_terms)
+import math
+# Take input from the user
+num = int(input("Enter a number: "))
+# Prime check logic
+if num <= 1:
+   print(f"{num} is not a prime number")
+else:
+   is_prime = True
+   for i in range(2, int(math.sqrt(num)) + 1):
+       if num % i == 0:
+           is_prime = False
+           break
+   if is_prime:
+       print(f"{num} is a prime number")
+   else:
+       print(f"{num} is not a prime number")
