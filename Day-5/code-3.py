@@ -1,24 +1,30 @@
-# Program to find the GCD of two numbers in Python
+# Program to print all factors of a given number
 
-def gcd(a, b):
-    """Compute the Greatest Common Divisor using Euclidean algorithm."""
-    while b != 0:
-        a, b = b, a % b
-    return abs(a)  # Ensure GCD is always positive
+def find_factors(n):
+    """Return a sorted list of factors of n."""
+    factors = set()
+    for i in range(1, int(abs(n) ** 0.5) + 1):
+        if n % i == 0:
+            factors.add(i)
+            factors.add(abs(n) // i)
+    return sorted(factors)
 
 def main():
     try:
-        # Take input from the user
-        num1 = int(input("Enter the first integer: "))
-        num2 = int(input("Enter the second integer: "))
+        # Take user input
+        num = int(input("Enter an integer: "))
         
-        # Calculate GCD
-        result = gcd(num1, num2)
+        # Handle zero separately
+        if num == 0:
+            print("Every non-zero integer is a factor of 0.")
+            return
         
-        print(f"The GCD of {num1} and {num2} is: {result}")
+        # Get and print factors
+        factors = find_factors(num)
+        print(f"Factors of {num} are: {factors}")
     
     except ValueError:
-        print("Invalid input! Please enter integers only.")
+        print("Invalid input. Please enter a valid integer.")
 
 if __name__ == "__main__":
     main()

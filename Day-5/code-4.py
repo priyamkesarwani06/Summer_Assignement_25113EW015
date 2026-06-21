@@ -1,28 +1,45 @@
-import math
-
-def find_lcm(a: int, b: int) -> int:
+def largest_prime_factor(n: int) -> int:
     """
-    Calculate the Least Common Multiple (LCM) of two integers.
-    Handles negative numbers and zero.
+    Returns the largest prime factor of a given integer n.
+    If n <= 1, returns None.
     """
-    if a == 0 or b == 0:
-        return 0  # LCM involving zero is zero
-    return abs(a * b) // math.gcd(a, b)
+    if n <= 1:
+        return None  # No prime factors for numbers <= 1
 
-def main():
-    try:
-        # Take user input
-        num1 = int(input("Enter first integer: "))
-        num2 = int(input("Enter second integer: "))
-        
-        # Calculate LCM
-        lcm_value = find_lcm(num1, num2)
-        
-        # Display result
-        print(f"LCM of {num1} and {num2} is: {lcm_value}")
-    
-    except ValueError:
-        print("Invalid input. Please enter integers only.")
+    # Handle negative numbers by taking absolute value
+    n = abs(n)
+
+    largest_factor = None
+
+    # Remove factors of 2
+    while n % 2 == 0:
+        largest_factor = 2
+        n //= 2
+
+    # Check odd factors from 3 upwards
+    factor = 3
+    while factor * factor <= n:
+        while n % factor == 0:
+            largest_factor = factor
+            n //= factor
+        factor += 2  # Skip even numbers
+
+    # If n is still > 2, it is prime
+    if n > 2:
+        largest_factor = n
+
+    return largest_factor
+
 
 if __name__ == "__main__":
-    main()
+    try:
+        num = int(input("Enter an integer: "))
+        result = largest_prime_factor(num)
+
+        if result is None:
+            print(f"{num} has no prime factors.")
+        else:
+            print(f"The largest prime factor of {num} is: {result}")
+
+    except ValueError:
+        print("Invalid input. Please enter a valid integer.")
